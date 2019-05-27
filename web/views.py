@@ -3,16 +3,28 @@ from __future__ import unicode_literals
 
 from django.shortcuts import HttpResponse
 import json
+from backend import ip2Region
+from ip import settings
 # Create your views here.
 
 
 def index(request):
-    data = {}
-    if 'HTTP_X_FORWARDED_FOR' in request.META:
-        http_x_forward_for = request.META['HTTP_X_FORWARDED_FOR']
-        data['ip'] = http_x_forward_for
-    else:
-        data['ip'] = request.META['REMOTE_ADDR']
+    if request.method == "GET":
+        data = {}
+        ip_to_region = ip2Region.Ip2Region(settings.ip_data_path)
+        if "ip" not in request.GET:
+            if 'HTTP_X_FORWARDED_FOR' in request.META:
+                http_x_forward_for = request.META['HTTP_X_FORWARDED_FOR']
+                data['ip'] = http_x_forward_for
+                data['region'] = ip_to_region.memorySearch(http_x_forward_for)['region']
+            else:
+                data['ip'] = request.META['REMOTE_ADDR']
+                data['region'] = ip_to_region.memorySearch(request.META['REMOTE_ADDR'])['region']
 
-    data = json.dumps(data)
-    return HttpResponse(data)
+        else:
+            data['ip'] = request.GET.get('ip')
+            data['region'] = ip_to_region.memorySearch(request.GET.get('ip'))['region']
+        data = json.dumps(data).decode('unicode-escape')
+        return HttpResponse(data)
+    else:
+        return HttpResponse("This method is not support.")
