@@ -5,6 +5,7 @@ from django.shortcuts import HttpResponse
 import json
 from backend import ip2Region
 from ip import settings
+from backend import tools
 # Create your views here.
 
 
@@ -16,14 +17,14 @@ def index(request):
             if 'HTTP_X_FORWARDED_FOR' in request.META:
                 http_x_forward_for = request.META['HTTP_X_FORWARDED_FOR']
                 data['ip'] = http_x_forward_for
-                data['region'] = ip_to_region.memorySearch(http_x_forward_for)['region']
             else:
                 data['ip'] = request.META['REMOTE_ADDR']
-                data['region'] = ip_to_region.memorySearch(request.META['REMOTE_ADDR'])['region']
-
         else:
             data['ip'] = request.GET.get('ip')
-            data['region'] = ip_to_region.memorySearch(request.GET.get('ip'))['region']
+        if tools.ipv6_check(data['ip']):
+            data['region'] = "unknown"
+        else:
+            data['region'] = ip_to_region.memorySearch(data['ip'])['region']
         data = json.dumps(data).decode('unicode-escape')
         return HttpResponse(data)
     else:
