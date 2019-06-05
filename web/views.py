@@ -16,7 +16,8 @@ def index(request):
         if "ip" not in request.GET:
             if 'HTTP_X_FORWARDED_FOR' in request.META:
                 http_x_forward_for = request.META['HTTP_X_FORWARDED_FOR']
-                data['ip'] = http_x_forward_for
+                real_ip = http_x_forward_for.split(',')[0]
+                data['ip'] = real_ip
             else:
                 data['ip'] = request.META['REMOTE_ADDR']
         else:
