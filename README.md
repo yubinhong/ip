@@ -1,5 +1,5 @@
 # 此工具用于获取本机出口IP地址以及查询ip地址的所在地。
-### demo地址：https://ip.newb.ga   （1核1G，请勿压测）
+### demo地址：https://ip.teatea.ga   （1核1G，请勿压测）(原域名：ip.newb.ga已经凉凉）
 ### 1.环境python 2.7 和 django 1.11.X
 ### 2.安装
 #### 1) git clone https://github.com/yubinhong/ip.git
