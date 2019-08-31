@@ -9,10 +9,10 @@
 
 ### 用法
 #### 1.默认访问为获取本机出口IP地址以及所在地
-#### curl https://ip.newb.ga
+#### curl https://ip.teatea.ga
 
 #### 2.添加ip参数可以查询其他ip地址
-#### curl https://ip.newb.ga/?ip=114.114.114.114
+#### curl https://ip.teatea.ga/?ip=114.114.114.114
 
 ### 捐赠地址
 ![](https://res.cloudinary.com/dc6pgic7p/image/upload/v1553325075/weixin.jpg)
