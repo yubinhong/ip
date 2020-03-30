@@ -25,8 +25,8 @@ def index(request):
         if tools.ipv6_check(data['ip']):
             data['region'] = "unknown"
         else:
-            data['region'] = ip_to_region.memorySearch(data['ip'])['region']
-        data = json.dumps(data).decode('unicode-escape')
+            data['region'] = ip_to_region.memorySearch(data['ip'])['region'].decode('utf8')
+        data = json.dumps(data)
         return HttpResponse(data)
     else:
         return HttpResponse("This method is not support.")
