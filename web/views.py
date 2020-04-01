@@ -26,7 +26,7 @@ def index(request):
             data['region'] = "unknown"
         else:
             data['region'] = ip_to_region.memorySearch(data['ip'])['region'].decode('utf8')
-        data = json.dumps(data)
+        data = json.dumps(data).decode('unicode-escape')
         return HttpResponse(data)
     else:
         return HttpResponse("This method is not support.")
