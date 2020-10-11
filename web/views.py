@@ -19,7 +19,7 @@ def index(request):
                 real_ip = http_x_forward_for.split(',')[0]
                 data['ip'] = real_ip
             else:
-                data['ip'] = request.META['REMOTE_ADDR']
+                data['ip'] = request.META['HTTP_X_REAL_IP']
         else:
             data['ip'] = request.GET.get('ip')
         if tools.ipv6_check(data['ip']):
